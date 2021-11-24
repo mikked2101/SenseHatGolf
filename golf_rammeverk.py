@@ -3,32 +3,45 @@ import numpy as np
 from sense_hat import SenseHat
 
 sense = SenseHat()
-
 pygame.init()
 
 clock = pygame.time.Clock()
 
+blank1 =         ([0,2,0,0,0,2,0,0],
+                  [0,0,0,2,0,0,0,0],
+                  [0,2,2,2,2,2,2,2],
+                  [0,0,0,0,0,0,0,0],
+                  [3,0,0,3,0,0,3,0],
+                  [0,0,0,0,0,0,0,0],
+                  [2,2,2,2,2,2,2,0],
+                  [0,0,0,0,0,0,0,0]
+                  )
+level=np.array(blank1)
 
-R = (255, 0, 0)  # Red
-W = (255, 255, 255)  # White
-D = (0, 0, 0)
-G = (0, 255, 0)
-
+B=(255, 255, 255) #Ball
+W=(128, 0, 0) # Wall
+H=(0, 255, 0) # Hole
+F=(255, 255, 0) # Finish
+G=(0, 0, 0) # Ground
 
 board = np.zeros((8, 8), dtype=np.int8) # Board setup
 print(board)
 
 ballpos = bx, by = 1, 1 # Starting positions
 
+vx = 0
+vy = 0
+
 board[1, 1] = 1
 
 FPS = 5
+d = "n"
 
 
 
 for i in range(8): # Update level
-        for j in range(8):
-            sense.set_pixel(i, j, G)
+    for j in range(8):
+        sense.set_pixel(i, j, G)
 
 running = True
 
@@ -38,19 +51,43 @@ while running:
 
     for event in sense.stick.get_events():
         
-        """if event.action == "pressed":
+        if event.action == "pressed":
     
             if event.direction =="up":
-                    d = "u"
+                vy = -1
             if event.direction =="down":
-                    d = "d"
+                vy = 1
             if event.direction =="right":
-                    d = "r"
+                vx = 1
             if event.direction =="left":
-                    d= "l""""
+                vx = -1
     
+    level[bx, by] = 0
 
+    if vy != 0:
+        if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
+            vy = 0
+        by += vy
 
-    sense.set_pixel(bx, by, W)
+    if vx != 0:
+        if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
+            vx = 0
+        bx += vx
+
+    level[bx, by] = 1
+
+    for i in range(8):
+        for j in range(8):
+            if level[i, j]==1:
+                sense.set_pixel(i, j, B)
+            elif level[i,j]==2:
+                sense.set_pixel(i,j,W)
+            elif level[i,j]==3:
+                sense.set_pixel(i,j,H)
+            elif level[i,j]==-1:
+                sense.set_pixel(i,j,F)
+            else:
+                sense.set_pixel(i,j,G)
+        
 
 sense.clear()
