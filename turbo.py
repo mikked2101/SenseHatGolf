@@ -7,7 +7,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-blank1 =         ([0,2,0,0,0,2,0,0],
+blank1 =         ([0,2,0,0,0,2,0,1],
                   [0,0,0,2,0,0,0,0],
                   [0,2,2,2,2,2,2,2],
                   [0,0,0,0,0,0,0,0],
@@ -18,30 +18,27 @@ blank1 =         ([0,2,0,0,0,2,0,0],
                   )
 level=np.array(blank1)
 
+holepos = []
+
+for i in range(8):
+    for j in range(8):
+        if level[i, j] == 1:
+            bx = i
+            by = j
+        elif level[i, j] == 3:
+            holepos.append([i, j])
+
 B=(255, 255, 255) #Ball
 W=(128, 0, 0) # Wall
 H=(0, 255, 0) # Hole
 F=(255, 255, 0) # Finish
 G=(0, 0, 0) # Ground
 
-board = np.zeros((8, 8), dtype=np.int8) # Board setup
-print(board)
-
-ballpos = bx, by = 1, 1 # Starting positions
-
 vx = 0
 vy = 0
 
-board[1, 1] = 1
-
 FPS = 5
-d = "n"
 
-
-
-for i in range(8): # Update level
-    for j in range(8):
-        sense.set_pixel(i, j, G)
 
 running = True
 
@@ -62,9 +59,9 @@ while running:
             if event.direction =="left":
                 vx = -1
     
-    level[bx, by] = 0
+    level[bx, by] = 0 # Fjern gammel posisjon
 
-    if vy != 0:
+    if vy != 0: # Sjekk kollisjon i y retning og beveg
         try: 
             if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
                 vy = 0
@@ -73,7 +70,7 @@ while running:
 
         by += vy
 
-    if vx != 0:
+    if vx != 0: # Sjekk kollisjon i x retning og beveg
         try:
             if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
                 vx = 0
@@ -81,11 +78,13 @@ while running:
             vx = 0
         bx += vx
 
-    level[bx, by] = 1
+    if [bx, by] in holepos:
+        running = False
 
 
-    
 
+
+    level[bx, by] = 1 # Oppdater posisjon
 
 
     for i in range(8):
