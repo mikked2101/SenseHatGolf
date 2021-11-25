@@ -10,9 +10,10 @@ def GAMEOVER(score):
     sense.show_message("Your score: "+str(score))
     
  def TIMER():
-    new_level_time=
+    new_level_time=0
     levelstart= pygame.time.get_ticks
     seconds=(pygame.time.get_ticks-levelstart)/1000
+    seconds-=new_level_time
     if seconds > 40:
         GAMEOVER(score)
     return seconds
@@ -44,10 +45,11 @@ def nextlevel(level):
 
 
  def LEVELFINISH(seconds):
-        current_level+=1
         sense.clear
-        sense.show_message("LEVEL"+str(current_level)
-        LOAD_LEVEL()
+        sense.show_message("LEVEL: "+str(current_level)
+        sense.show_message("USED TIME: "+str(seconds)
+        new_level_time+=seconds
+        
                            
         
         
