@@ -65,16 +65,28 @@ while running:
     level[bx, by] = 0
 
     if vy != 0:
-        if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
+        try: 
+            if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
+                vy = 0
+        except IndexError:
             vy = 0
+
         by += vy
 
     if vx != 0:
-        if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
+        try:
+            if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
+                vx = 0
+        except IndexError:
             vx = 0
         bx += vx
 
     level[bx, by] = 1
+
+
+    
+
+
 
     for i in range(8):
         for j in range(8):
