@@ -1,5 +1,6 @@
 import pygame
 import numpy as np
+from spillfunksjoner import *
 from sense_hat import SenseHat
 
 sense = SenseHat()
@@ -7,16 +8,10 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-blank1 =         ([0,2,0,0,0,2,0,1],
-                  [0,0,0,2,0,0,0,0],
-                  [0,2,2,2,2,2,2,2],
-                  [0,0,0,0,0,0,0,0],
-                  [3,0,0,3,0,0,3,0],
-                  [0,0,0,0,0,0,0,0],
-                  [2,2,2,2,2,2,2,0],
-                  [0,0,0,0,0,0,0,0]
-                  )
-level=np.array(blank1)
+
+nl = 1
+
+level=np.array(nextlevel(nl))
 
 holepos = []
 
@@ -27,6 +22,9 @@ for i in range(8):
             by = j
         elif level[i, j] == 3:
             holepos.append([i, j])
+        elif level[i, j] == -1:
+            goalpos = [i, j]
+            
 
 B=(255, 255, 255) #Ball
 W=(128, 0, 0) # Wall
@@ -79,8 +77,23 @@ while running:
         bx += vx
 
     if [bx, by] in holepos:
-        running = False
+        break
+    
+    if [bx, by] == goalpos: # Neste level
+        nl += 1
+        level=np.array(nextlevel(nl))
 
+        holepos = []
+        
+        for i in range(8):
+            for j in range(8):
+                if level[i, j] == 1:
+                    bx = i
+                    by = j
+                elif level[i, j] == 3:
+                    holepos.append([i, j])
+                elif level[i, j] == -1:
+                    goalpos = [i, j]
 
 
 
