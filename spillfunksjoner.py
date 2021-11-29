@@ -49,6 +49,27 @@ def nextlevel(level):
         sense.show_message("LEVEL: "+str(current_level)
         sense.show_message("USED TIME: "+str(seconds)
         new_level_time+=seconds
+                           
+                          
+                           
+def direction():
+  orientation = sense.get_orientation()
+  roll = (orientation.get("roll"))
+  pitch = (orientation.get("pitch"))
+  
+  x = 0
+  if (roll <= 90):
+    x = (10 / 90) * roll
+  elif (270 <= roll):
+    x = (10 / 90) * (roll - 360)
+    
+  y = 0
+  if (pitch <= 90):
+    y = (10 / 90) * pitch
+  elif (270 <= pitch):
+    y = (10 / 90) * (pitch - 360)
+        
+  return [x, y]                           
         
                            
         
