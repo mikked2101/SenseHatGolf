@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 
 nl = 0
-tot_levels = 2
+tot_levels = 3
 score = 0
 
 level=np.array(nextlevel(nl))
@@ -30,7 +30,10 @@ vx = 0
 vy = 0
 
 FPS = 60
-step = 0
+xstep = 0
+ystep = 0
+cx = 0
+cy = 0
 
 for i in range(8):
     for j in range(8):
@@ -54,7 +57,7 @@ while running:
     x = xy[1]
     y = xy[0]
 
-    print(f"x = {x}, y = {y}")
+    #print(f"x = {x}, y = {y}")
 
     if x > 1:
         vx = -1
@@ -70,27 +73,43 @@ while running:
     else:
         vy = 0
 
+    xstep = 10 - abs(int(x * 3))
+    ystep = 10 - abs(int(y * 3))
+
         
     
     
     level[bx, by] = 0 # Fjern gammel posisjon
 
-    if vy != 0: # Sjekk kollisjon i y retning og beveg
-        try: 
-            if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
+    if cy >= ystep:
+
+        if vy != 0: # Sjekk kollisjon i y retning og beveg
+            try: 
+                if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
+                    vy = 0
+            except IndexError:
                 vy = 0
-        except IndexError:
-            vy = 0
 
-        by += vy
+            by += vy
+        cy = 0
 
-    if vx != 0: # Sjekk kollisjon i x retning og beveg
-        try:
-            if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
+    else:
+        cy += 1
+
+    if cx >= xstep:
+
+        if vx != 0: # Sjekk kollisjon i x retning og beveg
+            try:
+                if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
+                    vx = 0
+            except IndexError:
                 vx = 0
-        except IndexError:
-            vx = 0
-        bx += vx
+            bx += vx
+        cx = 0
+
+    else:
+        cx += 1
+
 
     if [bx, by] in holepos:
         GAMEOVER()
