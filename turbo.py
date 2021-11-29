@@ -2,6 +2,7 @@ import pygame
 import numpy as np
 from spillfunksjoner import *
 from sense_hat import SenseHat
+import time
 
 sense = SenseHat()
 pygame.init()
@@ -9,21 +10,14 @@ pygame.init()
 clock = pygame.time.Clock()
 
 
-nl = 1
+nl = 0
+tot_levels = 2
+score = 0
 
 level=np.array(nextlevel(nl))
 
 holepos = []
 
-for i in range(8):
-    for j in range(8):
-        if level[i, j] == 1:
-            bx = i
-            by = j
-        elif level[i, j] == 3:
-            holepos.append([i, j])
-        elif level[i, j] == -1:
-            goalpos = [i, j]
             
 
 B=(255, 255, 255) #Ball
@@ -35,7 +29,19 @@ G=(0, 0, 0) # Ground
 vx = 0
 vy = 0
 
-FPS = 5
+FPS = 60
+step = 0
+
+for i in range(8):
+    for j in range(8):
+        if level[i, j] == 1:
+            bx = i
+            by = j
+        elif level[i, j] == 3:
+            holepos.append([i, j])
+        elif level[i, j] == -1:
+            goalpos = [i, j]
+
 
 
 running = True
@@ -44,18 +50,28 @@ running = True
 while running:
     clock.tick(FPS)
 
-    for event in sense.stick.get_events():
+    xy = ori()
+    x = xy[1]
+    y = xy[0]
+
+    print(f"x = {x}, y = {y}")
+
+    if x > 1:
+        vx = -1
+    elif x < -1:
+        vx = 1
+    else:
+        vx = 0
+
+    if y > 1:
+        vy = 1
+    elif y < -1:
+        vy = -1
+    else:
+        vy = 0
+
         
-        if event.action == "pressed":
     
-            if event.direction =="up":
-                vy = -1
-            if event.direction =="down":
-                vy = 1
-            if event.direction =="right":
-                vx = 1
-            if event.direction =="left":
-                vx = -1
     
     level[bx, by] = 0 # Fjern gammel posisjon
 
@@ -77,11 +93,32 @@ while running:
         bx += vx
 
     if [bx, by] in holepos:
-        break
+        GAMEOVER()
+        nl = 1
+
+        level=np.array(nextlevel(nl))
+
+        holepos = []
+
+        for i in range(8):
+            for j in range(8):
+                if level[i, j] == 1:
+                    bx = i
+                    by = j
+                elif level[i, j] == 3:
+                    holepos.append([i, j])
+                elif level[i, j] == -1:
+                    goalpos = [i, j]
+
+
     
     if [bx, by] == goalpos: # Neste level
         nl += 1
+        score += 100
+        if nl > tot_levels:
+            nl = 1
         level=np.array(nextlevel(nl))
+   
 
         holepos = []
         
@@ -113,5 +150,5 @@ while running:
             else:
                 sense.set_pixel(i,j,G)
         
-
+print_score(score)
 sense.clear()
