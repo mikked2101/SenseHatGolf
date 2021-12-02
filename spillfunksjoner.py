@@ -67,7 +67,8 @@ def GAMEOVER(score = ""):
 
 def print_score(score):                     #Funksjon som printer ut score
     with open("yourscore.txt", "w") as fil: #AApner fil med navn yourscore som tillater aa skrive i fil
-        fil.write("Score: " + str(score))   #Score blir lagt til i fil
+        while (level<=2):
+            fil.write("Score: " + str(score))   #Score blir lagt til i fil
 
 def ori():
     orientation = sense.get_orientation()
