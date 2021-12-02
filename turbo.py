@@ -18,6 +18,7 @@ FPS = 60
 
 # Variabler
 score = 0
+timescore = 0
 nl = 0
 
 level=np.array(nextlevel(nl))
@@ -80,29 +81,32 @@ while running:
     else:
         vy = 0
 
+    # Bestemmer hvor ofte ballen skal bevege seg.
     xstep = 10 - abs(int(x * 3))
     ystep = 10 - abs(int(y * 3))
 
     level[bx, by] = 0 # Fjern gammel posisjon
 
-    if cy >= ystep:
+    # I denne if- setningen beveger ballen seg i y- retning, med mindre noe staar i veien.
+    if cy >= ystep: # Sjekker om loekka har kjoert nok ganger til aa oppdatere.
 
-        if vy != 0: # Sjekk kollisjon i y retning og beveg
+        if vy != 0: # Kjoerer hvis ballen har en fart.
+            # Her forventes en indekseringsfeilmelding hvis ballen er inntil kanten av brettet. Bruker try for aa unngaa dette.
             try: 
-                if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8:
+                if level[bx, by + vy] == 2 or by + vy == -1 or by + vy == 8: # Setter farten lik 0 dersom neste posisjon er en vegg.
                     vy = 0
             except IndexError:
                 vy = 0
-
-            by += vy
+            by += vy # Oppdaterer ballposisjon med farten til ballen
         cy = 0
 
     else:
         cy += 1
 
+    # Det samme i x- retning.
     if cx >= xstep:
 
-        if vx != 0: # Sjekk kollisjon i x retning og beveg
+        if vx != 0:
             try:
                 if level[bx + vx, by] == 2 or bx + vx == -1 or bx + vx == 8:
                     vx = 0
@@ -114,13 +118,16 @@ while running:
     else:
         cx += 1
 
+    timescore += 0.05
 
-    if [bx, by] in holepos:
+    if [bx, by] in holepos: # Sjekker om ballposisjonen er en hullposisjon
+        # Starter spillet paa nytt og printer scoren
+        score -= int(timescore)
         GAMEOVER(score)
-        nl = 1
         print_score(score)
         score = 0
-
+        timescore = 0
+        nl = 1
         level=np.array(nextlevel(nl))
 
         holepos = []
@@ -140,10 +147,12 @@ while running:
     if [bx, by] == goalpos: # Neste level
         nl += 1
         score += 100
-        if nl > LEVELTOT:
+        if nl > LEVELTOT: # Gaar til level 1 dersom man vinner
             nl = 1
+            score -= int(timescore)
             print_score(score)
             score = 0
+            timescore = 0
         level=np.array(nextlevel(nl))
    
 
