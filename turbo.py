@@ -1,13 +1,15 @@
+# Importerer brukte biblioteker
 import pygame
 import numpy as np
 from spillfunksjoner import *
 from sense_hat import SenseHat
 import time
 
-sense = SenseHat()
-pygame.init()
+pygame.init() # Initialiserer koden
 
+# Lager variabler for lettere tilkalling
 clock = pygame.time.Clock()
+sense = SenseHat()
 
 
 nl = 0
