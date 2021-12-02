@@ -81,6 +81,13 @@ def direction():
   return [x, y]                           
         
                            
-        
+def VictoryScreen():
+   sense.show_message("You Win!",scroll_speed=0.02,text_colour=[128,128,128])
+   sense.show_message("Your score:0",scroll_speed=0.02,text_colour=[128,128,128])
+
+   for i in range (0,24):
+       choice="Victoryscreen"+str(i)+".png"
+       sense.load_image(choice)
+       time.sleep(0.05)
 
 
