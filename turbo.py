@@ -54,11 +54,11 @@ for i in range(8):
             goalpos = [i, j]
 
 
-# Spilløkka
+# Spillokka
 running = True
 
 while running:
-    clock.tick(FPS) # Kjører løkka FPS mange ganger per sekund, høyere FPS gir mer nøyaktige målinger.
+    clock.tick(FPS) # Kjorer lokka FPS mange ganger per sekund, hoyere FPS gir mer noyaktige maalinger.
 
     # Henter orientasjonen fra SenseHat
     xy = ori() 
