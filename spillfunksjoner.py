@@ -76,8 +76,8 @@ def GAMEOVER(score = ""):
     time.sleep(0.1)
 
 
-def print_score(score):                     #Funksjon som printer ut score
-    now = datetime.datetime.now() 
+def print_score(score):                     #Funksjon som printer ut score og dato
+    now = datetime.datetime.now()           # "now" er datoen og tiden akkurat naa          
     with open("yourscore.txt", "a") as fil: #AApner fil med navn yourscore som tillater aa skrive i fil
         fil.write("\n" + "Current date and time: " + str(now) + "\n" + "Score: " + str(score))   #Score blir lagt til i fil med dato
         
