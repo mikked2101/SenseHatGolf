@@ -1,5 +1,6 @@
 from sense_hat import SenseHat
 import time
+import datetime
 
 sense = SenseHat()
 
@@ -41,6 +42,16 @@ def nextlevel(level):
                  [0, 0, 0, 2, 0, 2, 0, -1]
                  )
 
+    if level == 3:
+        return ([2, 0, 4, 0, 2, 2, 0, -1],
+                [0, 2, 0, 0, 0, 0, 0, 0],
+                [0, 0, 3, 0, 0, 3, 0, 2],
+                [0, 0, 0, 0, 0, 0, 0, 2],
+                [2, 0, 0, 0, 0, 0, 0, 0],
+                [2, 0, 3, 0, 0, 3, 0, 4],
+                [0, 0, 0, 0, 0, 0, 2, 0],
+                [1, 0, 2, 2, 0, 0, 0, 2])
+
 """def get_positions(level):
     holepos = []
         
@@ -61,13 +72,16 @@ def GAMEOVER(score = ""):
     sense.clear
     sense.show_message("GAME OVER", 0.02)
     time.sleep(0.1)
-    sense.show_message("Your score: "+str(score), 0.02)
+    sense.show_message("Your score: "+ str(score), 0.02)
     time.sleep(0.1)
 
 
-def print_score(score):                     #Funksjon som printer ut score
-    with open("yourscore.txt", "w") as fil: #AApner fil med navn yourscore som tillater aa skrive i fil
-        fil.write("Score: " + str(score))   #Score blir lagt til i fil
+def print_score(score):                     #Funksjon som printer ut score og dato
+    now = datetime.datetime.now()           # "now" er datoen og tiden akkurat naa          
+    with open("yourscore.txt", "a") as fil: #AApner fil med navn yourscore som tillater aa skrive i fil
+        fil.write("\n" + "Current date and time: " + str(now) + "\n" + "Score: " + str(score))   #Score blir lagt til i fil med dato
+        
+
 
 def ori():
     orientation = sense.get_orientation()
