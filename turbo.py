@@ -12,31 +12,37 @@ clock = pygame.time.Clock()
 sense = SenseHat()
 
 
-nl = 0
-tot_levels = 3
+# Konstanter
+LEVELTOT = 3
+FPS = 60
+
+# Variabler
 score = 0
+nl = 0
 
 level=np.array(nextlevel(nl))
 
 holepos = []
 
             
-
+# Farger
 B=(255, 255, 255) #Ball
 W=(128, 0, 0) # Wall
 H=(0, 255, 0) # Hole
 F=(255, 255, 0) # Finish
 G=(0, 0, 0) # Ground
 
+# Fart i x og y retning
 vx = 0
 vy = 0
 
-FPS = 60
+# Variabler for telling av frames
 xstep = 0
 ystep = 0
 cx = 0
 cy = 0
 
+# Henter posisjoner for alle ruter
 for i in range(8):
     for j in range(8):
         if level[i, j] == 1:
@@ -48,19 +54,18 @@ for i in range(8):
             goalpos = [i, j]
 
 
-
+# Spilløkka
 running = True
 
-
 while running:
-    clock.tick(FPS)
+    clock.tick(FPS) # Kjører løkka FPS mange ganger per sekund, høyere FPS gir mer nøyaktige målinger.
 
-    xy = ori()
+    # Henter orientasjonen fra SenseHat
+    xy = ori() 
     x = xy[1]
     y = xy[0]
 
-    #print(f"x = {x}, y = {y}")
-
+    # Her bestemmes det om ballen skal bevege seg i det hele tatt
     if x > 1:
         vx = -1
     elif x < -1:
@@ -78,9 +83,6 @@ while running:
     xstep = 10 - abs(int(x * 3))
     ystep = 10 - abs(int(y * 3))
 
-        
-    
-    
     level[bx, by] = 0 # Fjern gammel posisjon
 
     if cy >= ystep:
@@ -136,7 +138,7 @@ while running:
     if [bx, by] == goalpos: # Neste level
         nl += 1
         score += 100
-        if nl > tot_levels:
+        if nl > LEVELTOT:
             nl = 1
         level=np.array(nextlevel(nl))
    
