@@ -116,8 +116,10 @@ while running:
 
 
     if [bx, by] in holepos:
-        GAMEOVER()
+        GAMEOVER(score)
         nl = 1
+        print_score(score)
+        score = 0
 
         level=np.array(nextlevel(nl))
 
@@ -140,6 +142,8 @@ while running:
         score += 100
         if nl > LEVELTOT:
             nl = 1
+            print_score(score)
+            score = 0
         level=np.array(nextlevel(nl))
    
 
