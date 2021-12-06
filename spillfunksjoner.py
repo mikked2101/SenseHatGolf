@@ -152,7 +152,7 @@ def Victory(score):
     sense.show_message("Your score: "+ str(score),scroll_speed=0.02,text_colour=[128,128,128])
     print_score(score)
     for i in range (0,24):
-        choice="Victoryscreen"+str(i)+".png"
+        choice="Victoryscreen/Victoryscreen"+str(i)+".png"
         sense.load_image(choice)
         time.sleep(0.05)
 
