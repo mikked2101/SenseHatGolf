@@ -8,6 +8,9 @@ Turbo Sphere er et gøyalt spill du kan spille hjemme eller på reise – uten b
 Turbo Sphere bruker Sense Hat’s innebygde IMU og registrerer data kontinuerlig fra disse sensorene for å emulere at brettet ligger i håndflaten din slik at dine bevegelser påvirker retningen og hastigheten til ballen. Dette gir en realistisk og meget engasjerende spillopplevelse.  
 
 
+For å kjøre spillet:
+
+Last ned alle filene fra GitHub og samle de i en mappe. Legg så mappen inn i en kalibrert Rspbery Pi med Sense Hat og gjør program. 
 
 
 Hvordan spille Turbo Sphere:
