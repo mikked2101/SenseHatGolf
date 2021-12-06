@@ -132,29 +132,30 @@ def nextlevel(level):
     
 
 
-def GAMEOVER(score = ""):
-    sense.clear
-    sense.show_message("GAME OVER", 0.02)
-    time.sleep(0.1)
-    sense.show_message("Your score: "+ str(score), 0.02)
-    time.sleep(0.1)
+def GAMEOVER(score = ""):                                                                  #Funksjon som vises naar spilleren faller i et hull
+    sense.clear                                                                            #Toemmer skjermer slik at teksten ikke kommer i veien for noe
+    sense.show_message("GAME OVER", 0.02)                                                  #Vise teksen "GAME OVER" på skjermen
+    time.sleep(0.1)                                                                        #Kort pause
+    sense.show_message("Your score: "+ str(score), 0.02)                                   #Vise scoren til spilleren
+    time.sleep(0.1)                                                                        #Kort pause før spillet begynner på nytt
 
 
 def print_score(score):                                                                     #Funksjon som printer ut score og dato
-    now = datetime.datetime.now()                                                           #datoen og tiden akkurat nå
+    now = datetime.datetime.now()                                                           #datoen og tiden akkurat naa
     now1 = now.strftime("%d-%m-%Y %H:%M:%S")                                                #finere format av dato og tid
     with open("yourscore.txt", "a") as fil:                                                 #AApner fil med navn yourscore som tillater aa skrive i fil
         fil.write("\n" + "Current date and time: " + str(now1) + " Score: " + str(score))   #Score blir lagt til i fil med dato
+
         
-def Victory(score):
-    sense.clear
-    sense.show_message("You Win!",scroll_speed=0.02,text_colour=[128,128,128])
-    sense.show_message("Your score: "+ str(score),scroll_speed=0.02,text_colour=[128,128,128])
-    print_score(score)
-    for i in range (0,24):
-        choice="Victoryscreen/Victoryscreen"+str(i)+".png"
-        sense.load_image(choice)
-        time.sleep(0.05)
+def Victory(score):                                                                         #Funksjon som dukker opp naar spilleren har klart alle banene                      
+    sense.clear                                                                             #Toemmer skjermer slik at teksten ikke kommer i veien for noe
+    sense.show_message("You Win!",scroll_speed=0.02,text_colour=[128,128,128])              #Vise teksen "You Win" på skjermen i fargen soelv
+    sense.show_message("Your score: "+ str(score),scroll_speed=0.02,text_colour=[128,128,128]) #Vise scoren til spilleren i fargen soelv
+    print_score(score)                                                                      #Funksjonen over med scoren til spilleren
+    for i in range (0,24):                                                                  #For loekke fra 0 til 23 som brukes til aa vise seierskjermen
+        choice="Victoryscreen/Victoryscreen"+str(i)+".png"                                  #Setter hver enkelt bilderamme som en variabel i hver gjennomgang av loekka
+        sense.load_image(choice)                                                            #Viser variablen på LED-matrisen til SenseHat'en
+        time.sleep(0.05)                                                                    #Kort pause før loopen kjører igjen                                                          
 
 def ori():
     orientation = sense.get_orientation()
