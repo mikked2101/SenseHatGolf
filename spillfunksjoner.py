@@ -1,3 +1,4 @@
+# Imporer brukte biblioteker
 from sense_hat import SenseHat
 import time
 import datetime
@@ -5,6 +6,7 @@ import datetime
 sense = SenseHat()
 
 
+# Denne funskjonen tar inn et heltall og returnerer en tilhoerende 8x8 matrise med baneelementer
 def nextlevel(level):
 
     if level == 0:
@@ -95,7 +97,7 @@ def nextlevel(level):
                  [0,2,0,3,3,3,3,0],
                  [0,0,0,0,0,0,0,0]
                  )
-    if level == 8: #Anders bane 1
+    if level == 8: 
         return ([1, 0, 0, 2, 0, 0, 0, 3],
                 [2, 2, 0, 2, 0, 2, -1, 0],
                 [0, 0, 0, 2, 0, 2, 2, 2],
@@ -114,24 +116,8 @@ def nextlevel(level):
                 [0, 0, 0, 0, 0, 0, 2, 0],
                 [0, 3, 2, 2, 2, 3, 2, 0],
                 [0, 0, 0, 0, 0, 0, 0, 4]) 
-
-
-"""def get_positions(level):
-    holepos = []
-        
-        for i in range(8):
-            for j in range(8):
-                if level[i, j] == 1:
-                    bx = i
-                    by = j
-                elif level[i, j] == 3:
-                    holp.append([i, j])
-                elif level[i, j] == -1:
-                    golp = [i, j]
-    return {ballpos: [bx, by], holepos : holp, goalpos, golp]}"""
     
-
-
+# Denne funksjonen tar inn en score og printer en melding paa skjermen med scoren.
 def GAMEOVER(score = ""):
     sense.clear
     sense.show_message("GAME OVER", 0.02)
@@ -145,7 +131,8 @@ def print_score(score):                                                         
     now1 = now.strftime("%d-%m-%Y %H:%M:%S")                                                #finere format av dato og tid
     with open("yourscore.txt", "a") as fil:                                                 #AApner fil med navn yourscore som tillater aa skrive i fil
         fil.write("\n" + "Current date and time: " + str(now1) + " Score: " + str(score))   #Score blir lagt til i fil med dato
-        
+
+# Denne funksjonen tar inn en score og viser en melding og en animasjon
 def Victory(score):
     sense.clear
     sense.show_message("You Win!",scroll_speed=0.02,text_colour=[128,128,128])
