@@ -143,19 +143,19 @@ def Victory(score):
         sense.load_image(choice)
         time.sleep(0.05)
 
-def ori():
-    orientation = sense.get_orientation()
-    roll = (orientation.get("roll"))
-    pitch = (orientation.get("pitch"))
+def ori():                                                                                 #Funksjonen henter sensordata fra gyroskopet og returnerer en liste med en x og en y verdi.
+    orientation = sense.get_orientation()                                                  
+    roll = (orientation.get("roll"))                                                       #roll er en vinkel fra 0 til 360 grader, om y aksen til Sense Haten.
+    pitch = (orientation.get("pitch"))                                                     #pitch er en vinkel fra 0 til 360 grader, om x aksen. 
   
-    x = 0
-    if (roll <= 90):
+    x = 0                                                                                  #gir x en verdi mellom -10 og 10 ut i fra vilken verdi roll har.
+    if (roll <= 90):                                                                       #hvis roll vinklelen er over 90/-90 (under 270) blir verdien av x = 0
         x = (10 / 90) * roll
     elif (270 <= roll):
         x = (10 / 90) * (roll - 360)
     
-    y = 0
-    if (pitch <= 90):
+    y = 0                                                                                  #gir y en verdi mellom -10 og 10 ut i fra vilken verdi pitch har.
+    if (pitch <= 90):                                                                      #hvis pitch vinklelen er over 90/-90 (under 270) blir verdien av y = 0
         y = (10 / 90) * pitch
     elif (270 <= pitch):
         y = (10 / 90) * (pitch - 360)
