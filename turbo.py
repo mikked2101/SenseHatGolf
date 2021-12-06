@@ -126,7 +126,7 @@ while running:
     timescore += 0.05
     
     
-    if [bx,by] in pointpos:
+    if [bx,by] in pointpos: # Sjekker om ballen er in en poengposisjon
         score+=70
         pointpos.remove([bx,by])
 
@@ -154,7 +154,6 @@ while running:
                     goalpos = [i, j]
                 elif level[i,j]==4:
                     pointpos.append([i,j])
-
 
     
     if [bx, by] == goalpos: # Neste level
@@ -186,11 +185,9 @@ while running:
                     pointpos.append([i,j])
                 
 
-
-
     level[bx, by] = 1 # Oppdater posisjon
 
-
+    # Her Oppdateres hele brettet med nye objektposisjoner
     for i in range(8):
         for j in range(8):
             if level[i, j]==1:
