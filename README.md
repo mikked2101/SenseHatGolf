@@ -24,4 +24,4 @@ Målområdet er gult. - Havner du her kommer du videre til neste bane.
 Coins er lyseblå. - Plukk opp disse underveis for å samle opp ekstrapoeng. 
 
 
-
+LYKKE TIL!
