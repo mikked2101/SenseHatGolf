@@ -13,7 +13,7 @@ sense = SenseHat()
 
 
 # Konstanter
-LEVELTOT = 7
+LEVELTOT = 9
 FPS = 60
 
 # Variabler
