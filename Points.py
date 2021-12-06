@@ -1,4 +1,4 @@
- Importerer brukte biblioteker
+# Importerer brukte biblioteker
 import pygame
 import numpy as np
 from spillfunksjoner import *
