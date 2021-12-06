@@ -34,7 +34,7 @@ W=(128, 0, 0) # Wall
 H=(0, 255, 0) # Hole
 F=(255, 255, 0) # Finish
 G=(0, 0, 0) # Ground
-P=(0,255,255) #Pickup
+P=(0,0,255) #Pickup
 
 # Fart i x og y retning
 vx = 0
