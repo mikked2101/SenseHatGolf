@@ -13,7 +13,7 @@ sense = SenseHat()
 
 
 # Konstanter
-LEVELTOT = 3
+LEVELTOT = 7
 FPS = 60
 
 # Variabler
@@ -24,6 +24,8 @@ nl = 0
 level=np.array(nextlevel(nl))
 
 holepos = []
+pointpos=[]
+
 
             
 # Farger
@@ -32,6 +34,7 @@ W=(128, 0, 0) # Wall
 H=(0, 255, 0) # Hole
 F=(255, 255, 0) # Finish
 G=(0, 0, 0) # Ground
+P=(0,255,255) #Pickup
 
 # Fart i x og y retning
 vx = 0
@@ -53,6 +56,8 @@ for i in range(8):
             holepos.append([i, j])
         elif level[i, j] == -1:
             goalpos = [i, j]
+        elif level[i,j]==4:
+            pointpos.append([i,j])
 
 
 # Spillokka
@@ -119,6 +124,11 @@ while running:
         cx += 1
 
     timescore += 0.05
+    
+    
+    if [bx,by] in pointpos:
+        score+=70
+        pointpos.remove([bx,by])
 
     if [bx, by] in holepos: # Sjekker om ballposisjonen er en hullposisjon
         # Starter spillet paa nytt og printer scoren
@@ -131,6 +141,7 @@ while running:
         level=np.array(nextlevel(nl))
 
         holepos = []
+        pointpos =[]
 
         for i in range(8):
             for j in range(8):
@@ -141,6 +152,8 @@ while running:
                     holepos.append([i, j])
                 elif level[i, j] == -1:
                     goalpos = [i, j]
+                elif level[i,j]==4:
+                    pointpos.append([i,j])
 
 
     
@@ -148,6 +161,7 @@ while running:
         nl += 1
         score += 100
         if nl > LEVELTOT: # Gaar til level 1 dersom man vinner
+            Victory(score)
             nl = 1
             score -= int(timescore)
             print_score(score)
@@ -157,6 +171,7 @@ while running:
    
 
         holepos = []
+        pointpos = []
         
         for i in range(8):
             for j in range(8):
@@ -167,6 +182,9 @@ while running:
                     holepos.append([i, j])
                 elif level[i, j] == -1:
                     goalpos = [i, j]
+                elif level[i,j]==4:
+                    pointpos.append([i,j])
+                
 
 
 
@@ -183,6 +201,8 @@ while running:
                 sense.set_pixel(i,j,H)
             elif level[i,j]==-1:
                 sense.set_pixel(i,j,F)
+            elif level[i,j]==4:
+                sense.set_pixel(i,j,P)
             else:
                 sense.set_pixel(i,j,G)
         
