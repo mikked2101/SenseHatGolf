@@ -8,7 +8,7 @@ Turbo Sphere er et gøyalt spill du kan spille hjemme eller på reise – uten b
 Turbo Sphere bruker Sense Hat’s innebygde IMU og registrerer data kontinuerlig fra disse sensorene for å emulere at brettet ligger i håndflaten din slik at dine bevegelser påvirker retningen og hastigheten til ballen. Dette gir en realistisk og meget engasjerende spillopplevelse.  
 
 Historien:
-I en verden etter et en nukulær akapolypse er en av de få overlevende kulen Alvis. Alvis er på et oppdrag om å komme seg hjem etter en tur ut, og skal plukke opp så mange blå motgift kapsler mot radioaktiviteten med seg hjem.
+I en verden etter et en nukulær akapolypse er en av de få overlevende kulen Alvis. Alvis er på et oppdrag om å komme seg hjem etter en tur ut, og skal plukke opp så mange blå motgift kapsler mot radioaktiviteten med seg hjem samtidig som han unngår de farlige pyttene med radioaktivt avfall.
 
 For å kjøre spillet:
 
